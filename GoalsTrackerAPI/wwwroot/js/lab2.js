@@ -28,8 +28,6 @@ async function getAreas() {
         console.error('Error fetching areas:', error);
     }
 }
-
-// Функция для добавления новой сферы
 async function addArea() {
     const newAreaName = document.getElementById('new-area-name').value;
 
@@ -43,7 +41,7 @@ async function addArea() {
         });
 
         if (response.ok) {
-            getAreas(); // Обновляем список сфер после добавления новой
+            getAreas();
         } else {
             console.error('Failed to add area:', response.statusText);
         }
@@ -58,7 +56,7 @@ async function deleteArea(id) {
 
     if (response.ok) {
         alert('Area deleted successfully.');
-        location.reload(); // Refresh the page to update areas list
+        location.reload(); 
     } else {
         alert('Failed to delete area.');
     }
@@ -75,7 +73,7 @@ async function editArea(areaId, newName) {
         });
 
         if (response.ok) {
-            getAreas(); // Обновляем список сфер после редактирования
+            getAreas(); 
         } else {
             console.error('Failed to edit area:', response.statusText);
         }
@@ -84,25 +82,32 @@ async function editArea(areaId, newName) {
     }
 }
 
-// Функция для отображения целей в определенной сфере
 async function showGoals(areaId) {
     const goalsListContainer = document.getElementById('goals-list');
     goalsListContainer.innerHTML = ''; // Очистка контейнера перед обновлением
 
     try {
         const response = await fetch(`api/Goals/GetGoalsInArea/${areaId}`);
-        const goals = await response.json();
 
-        if (goals.length === 0) {
-            goalsListContainer.textContent = 'No goals found in the specified area.';
-        } else {
+        if (response.ok) {
+            const areaResponse = await fetch(`api/Areas/${areaId}`);
+            const areaData = await areaResponse.json();
+
+            const goals = await response.json();
             const goalsList = document.createElement('ul');
+
+            const header = document.createElement('h3');
+            header.textContent = `Goals in the area: ${areaData.name}`;
+            goalsListContainer.appendChild(header);
+
             goals.forEach(goal => {
                 const listItem = document.createElement('li');
                 listItem.textContent = goal.title;
                 goalsList.appendChild(listItem);
             });
             goalsListContainer.appendChild(goalsList);
+        } else {
+            goalsListContainer.textContent = 'No goals found in the specified area.';
         }
     } catch (error) {
         console.error('Error fetching goals:', error);
@@ -120,7 +125,7 @@ function createAreaCard(area) {
     const deleteButton = document.createElement('button');
     deleteButton.textContent = 'Delete';
     deleteButton.addEventListener('click', (event) => {
-        event.stopPropagation(); // Предотвращаем всплытие события, чтобы не вызвать showGoals()
+        event.stopPropagation(); 
         deleteArea(area.id);
     });
     card.appendChild(deleteButton);
@@ -128,7 +133,7 @@ function createAreaCard(area) {
     const editButton = document.createElement('button');
     editButton.textContent = 'Edit';
     editButton.addEventListener('click', (event) => {
-        event.stopPropagation(); // Предотвращаем всплытие события, чтобы не вызвать showGoals()
+        event.stopPropagation();
         const newName = prompt('Enter new area name:', area.name);
         if (newName) {
             editArea(area.id, newName);
@@ -141,34 +146,4 @@ function createAreaCard(area) {
     return card;
 }
 
-
-function createAreaListItem(area) {
-    const listItem = document.createElement('li');
-    listItem.textContent = area.name;
-
-    const deleteButton = document.createElement('button');
-    deleteButton.textContent = 'Delete';
-    deleteButton.addEventListener('click', (event) => {
-        event.stopPropagation(); // Предотвращаем всплытие события, чтобы не вызвать showGoals()
-        deleteArea(area.id);
-    });
-    listItem.appendChild(deleteButton);
-
-    const editButton = document.createElement('button');
-    editButton.textContent = 'Edit';
-    editButton.addEventListener('click', (event) => {
-        event.stopPropagation(); // Предотвращаем всплытие события, чтобы не вызвать showGoals()
-        const newName = prompt('Enter new area name:', area.name);
-        if (newName) {
-            editArea(area.id, newName);
-        }
-    });
-    listItem.appendChild(editButton);
-
-    listItem.addEventListener('click', () => showGoals(area.id));
-
-    return listItem;
-}
-
-// Вызываем функцию для получения списка сфер при загрузке страницы
 getAreas();

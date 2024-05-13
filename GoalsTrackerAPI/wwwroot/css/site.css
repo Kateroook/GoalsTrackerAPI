@@ -1,17 +1,107 @@
-﻿.card {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    margin: 10px;
-    width: 200px;
-    display: inline-block;
-    vertical-align: top;
+﻿/* site.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
 }
 
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+#areas-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin:10px;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    width: 200px;
+    padding: 15px;
+    transition: transform 0.3s ease-in-out;
+    flex-direction: column;
+}
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
     .card h2 {
-        margin-top: 0;
+        margin: 0;
+        font-size: 18px;
+        color: #333;
     }
 
     .card button {
-        margin-top: 5px;
+        margin-top: 10px;
+        margin-right:4px;
+        padding: 8px 16px ;
+        background-color: #ff6347;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+        .card button:hover {
+            background-color: #e74c3c;
+        }
+
+.goals-list {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+    .goals-list li {
+        list-style-type: disc;
+        margin-bottom: 5px;
+        color: #555;
+    }
+
+#new-area-form {
+    margin-top: 20px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+#new-area-name {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+    #new-area-name:focus {
+        outline: none;
+        border-color: #ff6347;
+    }
+
+#add-area-button {
+    padding: 8px 16px;
+    background-color: #8f8f8f;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+    #add-area-button:hover {
+        background-color: #333;
     }

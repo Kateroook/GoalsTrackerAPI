@@ -7,15 +7,19 @@
     <title>Areas</title>
 </head>
 <body>
-    <h1>Areas</h1>
+    <h1>Areas</h1>    
+    
+    <div id="new-area-form">
+        <input type="text" id="new-area-name" placeholder="Enter new area name">
+        <button id="add-area-button" onclick="addArea()">Add Area</button>
+    </div>
+
     <div id="areas-container"></div>
-    <div id="goals-list"></div>
+    <div id="goals-list" class="center"></div>
 
     <ul id="areas-list"></ul>
 
-    <input type="text" id="new-area-name" placeholder="Enter new area name">
-    <button onclick="addArea()">Add Area</button>
-
     <script src="js/lab2.js"></script>
+
 </body>
 </html>
