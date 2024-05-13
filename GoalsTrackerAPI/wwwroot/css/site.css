@@ -1,0 +1,17 @@
+﻿.card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    width: 200px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+    .card h2 {
+        margin-top: 0;
+    }
+
+    .card button {
+        margin-top: 5px;
+    }
